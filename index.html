@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cristopher Pichihua — Portafolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0E1220;
+    --surface: #171D30;
+    --surface-2: #1E263D;
+    --line: #2B3350;
+    --text: #E9ECF7;
+    --muted: #8B93B0;
+    --amber: #F2A65A;
+    --teal: #4FD1C5;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(1100px 500px at 15% -10%, rgba(79,209,197,0.10), transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, rgba(242,166,90,0.08), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:980px; margin:0 auto; padding:0 24px;}
+  img{max-width:100%; display:block;}
+
+  nav{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:28px 0;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  nav .brand{color:var(--text); font-weight:500;}
+  nav .brand span{color:var(--amber);}
+  nav .nav-links{display:flex; gap:24px;}
+  nav .nav-links a{color:var(--muted); text-decoration:none; transition:color .2s;}
+  nav .nav-links a:hover{color:var(--teal);}
+
+  .hero{
+    display:grid;
+    grid-template-columns:1.3fr 0.7fr;
+    gap:48px;
+    align-items:center;
+    padding:32px 0 24px;
+  }
+  @media (max-width:760px){ .hero{grid-template-columns:1fr; text-align:center;} .hero-photo{order:-1; margin:0 auto;} }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--teal);
+    background:rgba(79,209,197,0.08);
+    border:1px solid rgba(79,209,197,0.25);
+    padding:6px 12px; border-radius:999px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:''; width:6px; height:6px; border-radius:50%;
+    background:var(--teal); box-shadow:0 0 8px var(--teal);
+  }
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(32px, 5.2vw, 50px);
+    line-height:1.08;
+    letter-spacing:-0.02em;
+  }
+  h1 span{color:var(--amber);}
+  .role{
+    margin-top:16px;
+    font-size:16px;
+    color:var(--muted);
+    max-width:520px;
+    line-height:1.65;
+  }
+  .links{margin-top:26px; display:flex; gap:12px; flex-wrap:wrap;}
+  @media (max-width:760px){ .links{justify-content:center;} }
+  .links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--text);
+    text-decoration:none;
+    padding:9px 16px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    transition:border-color .2s, background .2s;
+  }
+  .links a:hover{border-color:var(--teal); background:rgba(79,209,197,0.06);}
+
+  .hero-photo{
+    position:relative;
+    width:220px; height:220px;
+    justify-self:center;
+  }
+  .hero-photo img{
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:20px;
+    border:1px solid var(--line);
+  }
+  .hero-photo::after{
+    content:'';
+    position:absolute; inset:-8px;
+    border:1px solid rgba(79,209,197,0.35);
+    border-radius:26px;
+    z-index:-1;
+  }
+
+  .pipeline{margin:56px 0 8px; overflow-x:auto;}
+  .pipeline-track{
+    display:flex; align-items:center;
+    min-width:640px;
+    padding:8px 0 24px;
+  }
+  .node{
+    flex:1;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center;
+    position:relative;
+  }
+  .node-dot{
+    width:14px; height:14px; border-radius:50%;
+    background:var(--surface-2);
+    border:2px solid var(--line);
+    z-index:2;
+    transition:border-color .2s, background .2s, transform .2s;
+  }
+  .node:hover .node-dot{
+    border-color:var(--amber);
+    background:var(--amber);
+    transform:scale(1.15);
+  }
+  .node-label{
+    margin-top:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .connector{
+    flex:1; height:2px;
+    background:var(--line);
+    margin-top:-24px;
+  }
+
+  .section-title{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--muted);
+    margin:64px 0 20px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .section-title::after{
+    content:''; flex:1; height:1px; background:var(--line);
+  }
+
+  .about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+    padding-bottom:8px;
+  }
+  @media (max-width:680px){ .about{grid-template-columns:1fr;} }
+  .about p{
+    font-size:14.5px;
+    color:var(--muted);
+    line-height:1.75;
+  }
+  .skills{
+    display:flex; flex-wrap:wrap; gap:8px;
+    align-content:flex-start;
+  }
+  .skill{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--text);
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:6px 12px;
+    border-radius:8px;
+    height:fit-content;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+    padding-bottom:80px;
+  }
+  @media (max-width:680px){ .grid{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px;
+    display:flex; flex-direction:column;
+    text-decoration:none;
+    color:var(--text);
+    transition:transform .18s ease, border-color .18s ease, background .18s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--teal), var(--amber));
+    opacity:0; transition:opacity .2s;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(255,255,255,0.16);
+    background:var(--surface-2);
+  }
+  .card:hover::before{opacity:1;}
+
+  .card-index{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:16px;
+  }
+  .card-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:19px;
+    margin-bottom:10px;
+    letter-spacing:-0.01em;
+  }
+  .card-desc{
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.55;
+    flex:1;
+  }
+  .card-footer{
+    margin-top:20px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--teal);
+    background:rgba(79,209,197,0.08);
+    border:1px solid rgba(79,209,197,0.2);
+    padding:4px 10px;
+    border-radius:999px;
+  }
+  .go{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--amber);
+  }
+
+  footer{
+    padding:32px 0 56px;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav>
+    <div class="brand">cristopher<span>.dev</span></div>
+    <div class="nav-links">
+      <a href="#about">Sobre mí</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#contact">Contacto</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Disponible para prácticas</div>
+      <h1>Hola, soy <span>Cristopher</span></h1>
+      <p class="role">
+        Estudiante de Ingeniería de Sistemas en la Universidad Nacional de Cañete.
+        Trabajo en pipelines de datos, dashboards y modelos de machine learning,
+        documentados aquí como un flujo ETL.
+      </p>
+      <div class="links">
+        <a href="https://github.com/TU-USUARIO" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/TU-USUARIO" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="mailto:tu-correo@ejemplo.com">Correo ↗</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/foto.jpg" alt="Foto de Cristopher Pichihua">
+    </div>
+  </section>
+
+  <div class="pipeline">
+    <div class="pipeline-track">
+      <div class="node"><div class="node-dot"></div><div class="node-label">Cloud</div></div>
+      <div class="connector"></div>
+      <div class="node"><div class="node-dot"></div><div class="node-label">ETL · IA</div></div>
+      <div class="connector"></div>
+      <div class="node"><div class="node-dot"></div><div class="node-label">ETL · Power BI</div></div>
+      <div class="connector"></div>
+      <div class="node"><div class="node-dot"></div><div class="node-label">Paper</div></div>
+    </div>
+  </div>
+
+  <div class="section-title" id="about">Sobre mí</div>
+  <div class="about">
+    <p>
+      Me interesa la ingeniería de datos aplicada a problemas reales: desde pipelines
+      ETL asistidos por IA hasta modelos de machine learning para clasificación de imágenes.
+      Actualmente curso Big Data, Machine Learning e Ingeniería de Software en la UNDC,
+      donde llevo mis proyectos de clase hasta un prototipo funcional.
+    </p>
+    <div class="skills">
+      <span class="skill">Python</span>
+      <span class="skill">Power BI</span>
+      <span class="skill">Power Query</span>
+      <span class="skill">PySpark</span>
+      <span class="skill">React</span>
+      <span class="skill">FastAPI</span>
+      <span class="skill">PostgreSQL</span>
+      <span class="skill">Azure</span>
+    </div>
+  </div>
+
+  <div class="section-title" id="projects">Proyectos destacados</div>
+
+  <div class="grid">
+
+    <a class="card" href="URL_INSIGNIA_AZURE_AQUI" target="_blank" rel="noopener">
+      <div class="card-index">01 / Certificación</div>
+      <div class="card-title">Insignia Microsoft Azure</div>
+      <div class="card-desc">
+        Curso y certificación en fundamentos de la nube con Microsoft Azure, cubriendo servicios core, seguridad y modelos de precios.
+      </div>
+      <div class="card-footer">
+        <span class="tag">Cloud</span>
+        <span class="go">Ver insignia →</span>
+      </div>
+    </a>
+
+    <a class="card" href="URL_DASHBOARD_IA_AQUI" target="_blank" rel="noopener">
+      <div class="card-index">02 / ETL con IA</div>
+      <div class="card-title">Dashboard de Accidentes — Lovable</div>
+      <div class="card-desc">
+        Pipeline ETL asistido por IA sobre el dataset FARS 2022 (39,221 registros): extracción, transformación y visualización generadas con Lovable.
+      </div>
+      <div class="card-footer">
+        <span class="tag">IA · No-code</span>
+        <span class="go">Ver dashboard →</span>
+      </div>
+    </a>
+
+    <a class="card" href="URL_DASHBOARD_POWERBI_AQUI" target="_blank" rel="noopener">
+      <div class="card-index">03 / ETL con Power BI</div>
+      <div class="card-title">Dashboard de Accidentes — Power BI</div>
+      <div class="card-desc">
+        Mismo dataset de accidentes de tránsito, transformado con Power Query y visualizado en Power BI Desktop: KPIs, tendencias y comparativas por estado.
+      </div>
+      <div class="card-footer">
+        <span class="tag">Power Query</span>
+        <span class="go">Ver dashboard →</span>
+      </div>
+    </a>
+
+    <a class="card" href="URL_PAPER_AQUI" target="_blank" rel="noopener">
+      <div class="card-index">04 / Investigación</div>
+      <div class="card-title">Paper — Big Data</div>
+      <div class="card-desc">
+        Framework de análisis distribuido para accidentes de tránsito con HDFS, Spark MLlib y detección de anomalías, validado sobre el dataset US Accidents.
+      </div>
+      <div class="card-footer">
+        <span class="tag">Big Data</span>
+        <span class="go">Ver paper →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <footer id="contact">
+    Actualizado 2026 · Universidad Nacional de Cañete · <a href="mailto:tu-correo@ejemplo.com" style="color:var(--muted)">tu-correo@ejemplo.com</a>
+  </footer>
+</div>
+
+</body>
+</html>
