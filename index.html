@@ -264,6 +264,39 @@
     color:var(--amber);
   }
 
+  /* ---- Lista de insignias (generada dinámicamente) ---- */
+  .badge-list{
+    list-style:none;
+    margin-top:16px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-height:180px;
+    overflow-y:auto;
+    padding-right:6px;
+  }
+  .badge-list::-webkit-scrollbar{ width:6px; }
+  .badge-list::-webkit-scrollbar-track{ background:transparent; }
+  .badge-list::-webkit-scrollbar-thumb{
+    background:var(--line);
+    border-radius:999px;
+  }
+  .badge-list::-webkit-scrollbar-thumb:hover{ background:var(--teal); }
+  .badge-list li a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--teal);
+    text-decoration:none;
+    display:block;
+    transition:color .15s;
+  }
+  .badge-list li a:hover{ color:var(--amber); }
+  .badge-count{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--muted);
+  }
+
   footer{
     padding:32px 0 56px;
     text-align:center;
@@ -343,35 +376,20 @@
   <div class="grid">
 
     <div class="card">
-  <div class="card-index">01 / Certificación</div>
-  <div class="card-title">Insignias Microsoft Learn — Azure</div>
-  <div class="card-desc">
-    Cursos y certificaciones completados en Microsoft Learn sobre fundamentos y servicios de Microsoft Azure.
-  </div>
-  <ul style="list-style:none; margin-top:16px; display:flex; flex-direction:column; gap:8px;">
-    <li>
-      <a href="https://learn.microsoft.com/api/achievements/share/es-es/CristopherYossenPichihuaBelzusarri-6750/BUHCF3PD?sharingId=13256A0B2D0C64B3" target="_blank" rel="noopener"
-         style="font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--teal); text-decoration:none;">
-        → Introducción a la compilación con Power BI
-      </a>
-    </li>
-    <li>
-      <a href="https://learn.microsoft.com/api/achievements/share/es-es/CristopherYossenPichihuaBelzusarri-6750/P6U5DAC4?sharingId=13256A0B2D0C64B3" target="_blank" rel="noopener"
-         style="font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--teal); text-decoration:none;">
-        → Obtener datos en Power BI
-      </a>
-    </li>
-    <li>
-      <a href="https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/VSGJPWYM?sharingId=13256A0B2D0C64B3" target="_blank" rel="noopener"
-         style="font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--teal); text-decoration:none;">
-        → Crear informes interactivos con Copilot para Power BI
-      </a>
-    </li>
-  </ul>
-  <div class="card-footer">
-    <span class="tag">Cloud</span>
-  </div>
-</div>
+      <div class="card-index">01 / Certificación</div>
+      <div class="card-title">Insignias Microsoft Learn — Azure</div>
+      <div class="card-desc">
+        Cursos y certificaciones completados en Microsoft Learn sobre fundamentos y servicios de Microsoft Azure.
+      </div>
+
+      <!-- La lista de <li> se genera automáticamente desde el array MS_BADGES (ver <script> al final) -->
+      <ul class="badge-list" id="badge-list"></ul>
+
+      <div class="card-footer">
+        <span class="tag">Cloud</span>
+        <span class="badge-count" id="badge-count"></span>
+      </div>
+    </div>
 
     <a class="card" href="https://analisis-accidentes-ia-nova.lovable.app" target="_blank" rel="noopener">
       <div class="card-index">02 / ETL con IA</div>
@@ -415,6 +433,74 @@
     Actualizado 2026 · Universidad Nacional de Cañete · <a href="mailto:tu-correo@ejemplo.com" style="color:var(--muted)">tu-correo@ejemplo.com</a>
   </footer>
 </div>
+
+<script>
+  /* ============================================================
+     LISTA DE INSIGNIAS — MICROSOFT LEARN
+     ============================================================
+     Para agregar una insignia nueva en el futuro:
+     1. Copia una línea del array.
+     2. Cambia "nombre" por el título de la insignia.
+     3. Cambia "link" por la URL de "compartir" de Microsoft Learn.
+     4. Guarda el archivo. Listo, no necesitas tocar nada más.
+     ============================================================ */
+  const MS_BADGES = [
+    {
+      nombre: "Introducción a la compilación con Power BI",
+      link: "https://learn.microsoft.com/api/achievements/share/es-es/CristopherYossenPichihuaBelzusarri-6750/BUHCF3PD?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Obtener datos en Power BI",
+      link: "https://learn.microsoft.com/api/achievements/share/es-es/CristopherYossenPichihuaBelzusarri-6750/P6U5DAC4?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Crear informes interactivos con Copilot para Power BI",
+      link: "https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/VSGJPWYM?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Limpiar, transformar y cargar datos en Power BI",
+      link: "https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/4CHLYXCK?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Preparación de datos para el análisis con Power BI",
+      link: "https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/XPDMGL4Y?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Elección de un marco de modelo de Power BI",
+      link: "https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/XPDMGDVY?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Configurar un modelo semántico",
+      link: "https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/9AVXKQSU?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Escribir fórmulas DAX para modelos semánticos",
+      link: "https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/3ZQRJVAH?sharingId=13256A0B2D0C64B3"
+    },
+    {
+      nombre: "Crear cálculos DAX en modelos semánticos",
+      link: "https://learn.microsoft.com/api/achievements/share/es-mx/CristopherYossenPichihuaBelzusarri-6750/9AVXBS3U?sharingId=13256A0B2D0C64B3"
+    },
+    // 👇 Agrega aquí tus próximas insignias, ej:
+    // {
+    //   nombre: "Fundamentos de Azure AZ-900",
+    //   link: "https://learn.microsoft.com/api/achievements/share/..."
+    // },
+  ];
+
+  function renderBadges(badges) {
+    const list = document.getElementById('badge-list');
+    const count = document.getElementById('badge-count');
+    list.innerHTML = badges.map(b => `
+      <li>
+        <a href="${b.link}" target="_blank" rel="noopener">→ ${b.nombre}</a>
+      </li>
+    `).join('');
+    count.textContent = badges.length + (badges.length === 1 ? ' insignia' : ' insignias');
+  }
+
+  renderBadges(MS_BADGES);
+</script>
 
 </body>
 </html>
